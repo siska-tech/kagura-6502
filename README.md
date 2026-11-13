@@ -46,7 +46,12 @@ KAGURA-6502 は、実物の W65C02S を CPU に使う自作 6502 コンピュー
 | `$D400–$D41F` | 矩形波・ノイズ・マスター音量の制御。`$D41F` への書き込みで設定を一括反映 |
 | `$F800–$FFFF` | BIOS ROM と CPU ベクタ |
 
-信号とコネクタの詳細は [ピン割当](docs/pinmap.md) と [基板の組み立て指南書](board/README.md) を参照してください。
+詳細資料
+
+- [VDP と VRAM](docs/vdp.md) — 画面座標、レジスタ、タイル・スプライトのデータ形式
+- [6ch 音源](docs/audio.md) — レジスタ、波形メモリ、ミックスと設定反映
+- [BIOS・BASIC と実機起動](docs/boot-and-basic.md) — 起動時の確認、BASIC イメージの生成と UART ローダの仕様
+- [ピン割当](docs/pinmap.md) と [基板の組み立て指南書](board/README.md) — コネクタ、給電、初回通電
 
 ## 検証状況
 

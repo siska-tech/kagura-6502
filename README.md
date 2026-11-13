@@ -20,3 +20,5 @@ bash fpga/vdp/sim/run_system.sh sys_a1024_aud
 ```
 
 第三者ソースの表示とライセンスは [THIRD_PARTY.md](THIRD_PARTY.md) を参照してください。KAGURA-6502 自体のライセンスは未決定です。
+
+キャリア基板 Rev.A の [KiCad ソースと組み立て指南書](board/README.md)、および [配布 ZIP](https://github.com/siska-tech/kagura-6502/releases/tag/v1.0-rc.1) を用意しています。

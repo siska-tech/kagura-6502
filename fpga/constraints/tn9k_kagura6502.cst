@@ -1,0 +1,138 @@
+// KAGURA-6502 pin assignment draft v0.1 for Tang Nano 9K (GW1NR-LV9QN88PC6/I5)
+// Source of truth for pin/bank data:
+//   - Gowin IDE data/device/GW1NR-9/QFN88P.json (bank / dual-purpose functions)
+//   - Sipeed Tang_nano_9K_3674_schematics.pdf (header J5/J6 wiring, VCCIO: bank0/1/2=3.3V, bank3=1.8V)
+// See docs/pinmap.md for the human-readable table and rationale.
+
+// ---------------------------------------------------------------------------
+// Onboard resources
+// ---------------------------------------------------------------------------
+IO_LOC  "clk27" 52;                       // 27 MHz XTAL (GCLKT_3, bank1)
+IO_PORT "clk27" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+
+IO_LOC  "bl_uart_tx" 17;                  // FPGA -> BL702 (USB-UART on Tang's own USB-C)
+IO_PORT "bl_uart_tx" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "bl_uart_rx" 18;                  // BL702 -> FPGA
+IO_PORT "bl_uart_rx" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+IO_LOC  "led_n[0]" 10;                    // onboard LEDs, active low, bank3 (1.8V)
+IO_LOC  "led_n[1]" 11;
+IO_LOC  "led_n[2]" 13;
+IO_LOC  "led_n[3]" 14;
+IO_LOC  "led_n[4]" 15;
+IO_LOC  "led_n[5]" 16;
+IO_PORT "led_n[0]" IO_TYPE=LVCMOS18 PULL_MODE=UP DRIVE=8;
+IO_PORT "led_n[1]" IO_TYPE=LVCMOS18 PULL_MODE=UP DRIVE=8;
+IO_PORT "led_n[2]" IO_TYPE=LVCMOS18 PULL_MODE=UP DRIVE=8;
+IO_PORT "led_n[3]" IO_TYPE=LVCMOS18 PULL_MODE=UP DRIVE=8;
+IO_PORT "led_n[4]" IO_TYPE=LVCMOS18 PULL_MODE=UP DRIVE=8;
+IO_PORT "led_n[5]" IO_TYPE=LVCMOS18 PULL_MODE=UP DRIVE=8;
+
+IO_LOC  "btn_n[0]" 3;                     // S1, bank3 (1.8V)
+IO_LOC  "btn_n[1]" 4;                     // S2, shares JTAGSEL_N
+IO_PORT "btn_n[0]" IO_TYPE=LVCMOS18 PULL_MODE=UP;
+IO_PORT "btn_n[1]" IO_TYPE=LVCMOS18 PULL_MODE=UP;
+
+// HDMI (fixed by board; also routed to J6-12..17, J6-23/24 -> NOT usable as GPIO)
+IO_LOC  "tmds_clk_p"     69,68;
+IO_LOC  "tmds_d_p[0]"    71,70;
+IO_LOC  "tmds_d_p[1]"    73,72;
+IO_LOC  "tmds_d_p[2]"    75,74;
+IO_PORT "tmds_clk_p"     PULL_MODE=NONE DRIVE=8;
+IO_PORT "tmds_d_p[0]"    PULL_MODE=NONE DRIVE=8;
+IO_PORT "tmds_d_p[1]"    PULL_MODE=NONE DRIVE=8;
+IO_PORT "tmds_d_p[2]"    PULL_MODE=NONE DRIVE=8;
+
+// ---------------------------------------------------------------------------
+// W65C02S bus  (all 3.3V banks; CPU VDD = Tang +3V3)
+// ---------------------------------------------------------------------------
+// Data bus: J5-5..12 (pins 25-30 have no onboard peripheral; 33/34 go to the
+// unpopulated RGB-LCD FPC only)
+IO_LOC  "cpu_d[0]" 25;   // J5-5
+IO_LOC  "cpu_d[1]" 26;   // J5-6
+IO_LOC  "cpu_d[2]" 27;   // J5-7
+IO_LOC  "cpu_d[3]" 28;   // J5-8
+IO_LOC  "cpu_d[4]" 29;   // J5-9
+IO_LOC  "cpu_d[5]" 30;   // J5-10
+IO_LOC  "cpu_d[6]" 33;   // J5-11 (RGB_DE stub)
+IO_LOC  "cpu_d[7]" 34;   // J5-12 (RGB_VS stub)
+IO_PORT "cpu_d[0]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_PORT "cpu_d[1]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_PORT "cpu_d[2]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_PORT "cpu_d[3]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_PORT "cpu_d[4]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_PORT "cpu_d[5]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_PORT "cpu_d[6]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_PORT "cpu_d[7]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+
+IO_LOC  "cpu_rwb"  40;   // J5-13 (RGB_HS stub)
+IO_PORT "cpu_rwb"  IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_LOC  "cpu_phi2" 35;   // J5-14 (RGB_CK stub) FPGA-generated CPU clock
+IO_PORT "cpu_phi2" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// Address bus A0-A7: J5-15..22
+IO_LOC  "cpu_a[0]" 41;   // J5-15
+IO_LOC  "cpu_a[1]" 42;   // J5-16
+IO_LOC  "cpu_a[2]" 51;   // J5-17
+IO_LOC  "cpu_a[3]" 53;   // J5-18 (DOUT/WE_N dual-purpose)
+IO_LOC  "cpu_a[4]" 54;   // J5-19 (DIN/CLKHOLD_N dual-purpose)
+IO_LOC  "cpu_a[5]" 55;   // J5-20 (SSPI_CS_N dual-purpose)
+IO_LOC  "cpu_a[6]" 56;   // J5-21 (SO dual-purpose)
+IO_LOC  "cpu_a[7]" 57;   // J5-22 (FASTRD_N dual-purpose)
+// Address bus A8-A11: J5-1..4 (shared with onboard TF slot -> TF card must NOT be inserted)
+IO_LOC  "cpu_a[8]"  38;  // J5-1 TF_CS
+IO_LOC  "cpu_a[9]"  37;  // J5-2 TF_MOSI
+IO_LOC  "cpu_a[10]" 36;  // J5-3 TF_SCLK
+IO_LOC  "cpu_a[11]" 39;  // J5-4 TF_MISO
+// Address bus A12-A15: J6
+IO_LOC  "cpu_a[12]" 63;  // J6-1
+IO_LOC  "cpu_a[13]" 77;  // J6-10
+IO_LOC  "cpu_a[14]" 76;  // J6-11
+IO_LOC  "cpu_a[15]" 48;  // J6-19
+IO_PORT "cpu_a[0]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[1]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[2]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[3]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[4]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[5]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[6]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[7]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[8]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[9]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[10]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[11]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[12]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[13]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[14]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "cpu_a[15]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+
+IO_LOC  "cpu_irqb" 49;   // J6-20, open-drain style (drive 0 / Hi-Z), ext. pull-up
+IO_PORT "cpu_irqb" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+
+// ---------------------------------------------------------------------------
+// XIAO RP2040 link (UART, 3.3V)
+// ---------------------------------------------------------------------------
+IO_LOC  "xiao_tx" 31;    // J6-21  FPGA -> XIAO (XIAO D7/GPIO1 RX)
+IO_PORT "xiao_tx" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "xiao_rx" 32;    // J6-22  XIAO D6/GPIO0 TX -> FPGA
+IO_PORT "xiao_rx" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// ---------------------------------------------------------------------------
+// Bank3 (1.8V) header pins J6-2..9 : output-only / 1.8V-safe functions
+// ---------------------------------------------------------------------------
+IO_LOC  "aud_pwm_l" 86;  // J6-2  PWM audio L -> RC LPF (shares LCD BL_PWM net)
+IO_LOC  "aud_pwm_r" 85;  // J6-3  PWM audio R -> RC LPF
+IO_PORT "aud_pwm_l" IO_TYPE=LVCMOS18 PULL_MODE=NONE DRIVE=8;
+IO_PORT "aud_pwm_r" IO_TYPE=LVCMOS18 PULL_MODE=NONE DRIVE=8;
+IO_LOC  "cpu_sync_1v8" 84; // J6-4  RESERVED, not connected (internal pull-down). Future: SYNC via level shifter
+IO_PORT "cpu_sync_1v8" IO_TYPE=LVCMOS18 PULL_MODE=DOWN;
+IO_LOC  "user_btn_n" 83;   // J6-5  carrier push button to GND (internal pull-up)
+IO_PORT "user_btn_n" IO_TYPE=LVCMOS18 PULL_MODE=UP;
+IO_LOC  "dbg[0]" 82;       // J6-6..9 debug / logic-analyzer probes (1.8V)
+IO_LOC  "dbg[1]" 81;
+IO_LOC  "dbg[2]" 80;
+IO_LOC  "dbg[3]" 79;
+IO_PORT "dbg[0]" IO_TYPE=LVCMOS18 PULL_MODE=NONE DRIVE=8;
+IO_PORT "dbg[1]" IO_TYPE=LVCMOS18 PULL_MODE=NONE DRIVE=8;
+IO_PORT "dbg[2]" IO_TYPE=LVCMOS18 PULL_MODE=NONE DRIVE=8;
+IO_PORT "dbg[3]" IO_TYPE=LVCMOS18 PULL_MODE=NONE DRIVE=8;

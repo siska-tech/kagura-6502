@@ -1,0 +1,15 @@
+*.sh text eol=lf
+*.py text eol=lf
+*.v  text eol=lf
+*.sv text eol=lf
+*.s  text eol=lf
+*.cst text eol=lf
+*.sdc text eol=lf
+*.tcl text eol=lf
+*.md text eol=lf
+*.hex text eol=lf
+# Gowin reports are kept byte-for-byte as generated
+build-logs/** -text
+# Vendored sources are kept byte-for-byte (manifest SHA256)
+third_party/** -text
+*.fs -text

@@ -1,0 +1,23 @@
+# Gowin EDA build outputs (reports of record are copied to build-logs/)
+fpga/**/impl/
+fpga/**/gw_run*.log
+*.gprj.user
+# Verilator
+fpga/**/sim/build/
+fpga/**/sim/logs/
+build/
+# exp74 per-variant Gowin project outputs
+fpga/exp74/syn/impl_*/
+fpga/exp74/syn/gen/
+fpga/exp74/sim/**/build/
+fpga/exp74/sim/**/logs/
+__pycache__/
+# BASIC platform per-variant Gowin outputs
+fpga/basic/syn/impl_*/
+fpga/basic/syn/gen/
+# VDP per-variant Gowin outputs
+fpga/vdp/syn/impl_*/
+fpga/vdp/syn/gen/
+# audio per-variant Gowin outputs
+fpga/audio/syn/impl_*/
+fpga/audio/syn/gen/

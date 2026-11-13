@@ -1,0 +1,69 @@
+PSRAM preloaded with the BASIC image $9800-$b8ba (8379 bytes) from ../../basic/sw/build/basic_fast_psram.hex
+[344.044 us] RESB released after READY
+[0.537 ms] CON> 
+[2.448 ms] CON> KAGURA-6502 BIOS 0.1
+[149.122 ms] CON> 
+MARK boot       t_us=149936.8 cycles=486897 instr=139489 ps_cycles=16129 ps_reads=16129 stretch_n=16129 stretch_us=5674.9 fetch=139489 fetch_ps=157
+[151.006 ms] CON> MEMORY SIZE? 38912
+MARK memsize    t_us=2388.4 cycles=7962 instr=2584 ps_cycles=84 ps_reads=84 stretch_n=84 stretch_us=29.6 fetch=2584 fetch_ps=21
+[152.960 ms] CON> TERMINAL WIDTH? 
+[153.134 ms] CON> 
+[157.011 ms] CON>  30719 BYTES FREE
+[157.185 ms] CON> 
+[157.359 ms] CON> 
+[160.226 ms] CON> COPYRIGHT 1977 BY MICROSOFT CO.
+[160.439 ms] CON> 
+[160.787 ms] CON> OK
+MARK ready      t_us=8120.4 cycles=27176 instr=8722 ps_cycles=197 ps_reads=194 stretch_n=194 stretch_us=68.5 fetch=8722 fetch_ps=38
+[162.644 ms] CON> 10 A=54272:V=54016
+[172.893 ms] CON> 20 POKE A,191:POKE A+1,88:POKE A+2,2
+[189.996 ms] CON> 22 POKE A+3,128:POKE A+4,255
+[204.447 ms] CON> 30 POKE A+8,85:POKE A+9,85:POKE A+10,5
+[222.717 ms] CON> 32 POKE A+11,64:POKE A+12,240
+[237.592 ms] CON> 40 POKE A+24,3:POKE A+25,0:POKE A+26,136
+[257.098 ms] CON> 42 POKE A+28,11:POKE A+29,15:POKE A+31,0
+[276.299 ms] CON> 50 POKE V,0:POKE V+1,154:POKE V+2,0
+[294.476 ms] CON> 52 FOR I=0 TO 255:POKE V+3,I:NEXT
+[310.267 ms] CON> 60 POKE V+16,69:POKE V+17,35:POKE V+18,1
+[329.096 ms] CON> 62 POKE V+19,90:POKE V+24,1
+[342.525 ms] CON> 70 POKE 53251,90
+MARK enter      t_us=181741.1 cycles=573251 instr=188424 ps_cycles=34263 ps_reads=33804 stretch_n=33804 stretch_us=11893.7 fetch=188424 fetch_ps=0
+[348.095 ms] CON> RUN
+[756.327 ms] CON> 
+[756.674 ms] CON> OK
+MARK aud_setup  t_us=414150.1 cycles=1372970 instr=407520 ps_cycles=22263 ps_reads=20906 stretch_n=20906 stretch_us=7355.6 fetch=407520 fetch_ps=1623
+[760.966 ms] CON> PRINT PEEK(A+30);PEEK(A+27);PEEK(A+28);PEEK(A)
+[800.671 ms] CON>  0  32  11  191 
+[800.845 ms] CON> 
+[801.193 ms] CON> OK
+[801207.798 us] AUD: model synchronised (ph0 a4a5e4 ph1 ea904c lfsr 380a wave ph0 2b38b0)
+[801.759 ms] CON> NEW
+[804.231 ms] CON> 
+[804.579 ms] CON> OK
+[806.267 ms] CON> 10 DIM B(60):S=0
+[818.078 ms] CON> 20 FOR I=1 TO 60:B(I)=I*3:NEXT
+[835.642 ms] CON> 30 FOR I=1 TO 60:S=S+B(I):NEXT
+[854.648 ms] CON> 40 PRINT S:PRINT PEEK(54302)
+[864.265 ms] CON> RUN
+[1083.356 ms] CON>  5490 
+[1085.641 ms] CON>  0 
+[1085.815 ms] CON> 
+[1086.162 ms] CON> OK
+MARK aud_run    t_us=329488.5 cycles=1076510 instr=335280 ps_cycles=32218 ps_reads=29932 stretch_n=29932 stretch_us=10531.3 fetch=335280 fetch_ps=747
+AUD: 13678 samples compared over 13678 ticks (non-zero 13678, mismatches 0); PHI2 stretches during the window 23232, PSRAM cycles 25518
+---- summary SYS_PS=18518 CYC=16 (CPU 3.37509 MHz) FAST=8192 ROM=2048 script=aud
+SIG sequence: a5 b5 5a 
+CPU: cycles=3544766 instr=1082019 distinct_opcodes=94 psram_cycles=105154 (reads 101049, wp-dropped writes 0) stretched=101049 (35553.5 us) model_cycle=3544766
+CPU pins: min read setup 37.0 ns (tDSR 15), min read hold 37.0 ns (tDHR 10); checker events 6626827
+PSRAM model: reads=101049 writes=4105 reg=1 maxCS=23 errors=0; FPGA monitor: vec=f800 boot_ok=1 bus_err=0
+opcodes executed: 05 06 08 09 0a 10 16 18 20 24 25 26 28 29 2a 2c 30 38 45 46 48 49 4a 4c 50 56 60 64 65 66 68 69 6a 6c 70 76 78 79 80 84 85 86 88 8a 8d 90 91 94 95 98 99 9a 9c 9d a0 a2 a4 a5 a6 a8 a9 aa ad ae b0 b1 b4 b5 b9 ba bd be c0 c4 c5 c6 c8 c9 ca cd d0 d1 d8 d9 dd e0 e4 e5 e6 e8 e9 f0 f9 fd 
+console RX FIFO: max occupancy 41 of 64 bytes
+VDP: NPAT=1024 frames=66 compared=0 pixels=0 mismatches=0 frame-period errors=0 mixed-border frames=0 render max=1029 sysclk overrun=0
+hdmi: packets 14318 (ASP 13033), decoded samples 52132 of 52136 accepted (pending 4), per frame 800..800 over 65 full frames, errors 0
+pwm: 19138 sample runs checked over 80648139 clocks, whole-run error 0.238 / -0.033 counts (bound 1), duty L 0.48053 R 0.49942, errors 0
+AUDIO=1: samples produced 52136, accepted by HDMI 52136
+RESULT: PASS
+- tb_system.sv:805: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1s; walltime 236.007 s; speed 4.604 ms/s
+- Verilator: cpu 235.911 s on 1 threads; alloced 122 MB

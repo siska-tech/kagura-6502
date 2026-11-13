@@ -12,4 +12,4 @@
 build-logs/** -text
 # Vendored sources are kept byte-for-byte (manifest SHA256)
 third_party/** -text
-*.fs -text
+*.fs -text linguist-language=Text linguist-generated=true linguist-detectable=false

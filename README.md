@@ -1,6 +1,22 @@
-# KAGURA-6502 — RTL v1.0 RC
+# KAGURA-6502
 
-**W65C02S 実機照合待ち。** Tang Nano 9K（GW1NR-LV9QN88PC6/I5、device version C）向けの統合版です。CPU 3.375 MHz、PSRAM 主記憶、高速 RAM 8 KiB、Boot ROM 2 KiB、VDP 320×176（1024 パターン、256 スプライト）、HDMI 720p60、6ch 音源（48 kHz ステレオ、HDMI / PWM）の構成です。
+KAGURA-6502 は、実物の W65C02S を CPU に使う自作 6502 コンピュータです。専用キャリア基板 Rev.A に Tang Nano 9K と XIAO RP2040 を組み合わせ、HDMI ディスプレイと USB キーボードで使えるスタンドアロンの BASIC 機を目指しています。
+
+![KAGURA-6502 キャリア基板 Rev.A の KiCad 3D レンダリング](board/rev-a-3d.png)
+
+*キャリア基板 Rev.A（72 × 48 mm、4 層）の設計データから生成したイメージ。*
+
+| 構成 | 役割 |
+| --- | --- |
+| W65C02S | 3.375 MHz で BIOS と KAGURA BASIC を実行 |
+| Tang Nano 9K | CPU バス、PSRAM 主記憶、8 KiB 高速 RAM、2 KiB Boot ROM。320×176 のタイル・スプライト映像を HDMI 720p60 で出力し、6ch 音源を HDMI / PWM に出力 |
+| XIAO RP2040 | CPU のリセットを監督。キャリア基板の USB-A にキーボードをつなぐための配線を備える |
+
+**RTL v1.0 RC は W65C02S 実機照合待ちです。** 現行版のコンソールは Tang Nano 9K の USB シリアルです。BIOS から KAGURA BASIC を UART でロードします。基板上の USB-A からキー入力を使うには、XIAO の USB ホスト／HID ファームウェアと、FPGA のコンソール入力経路の実装が必要です。
+
+[GitHub Releases](https://github.com/siska-tech/kagura-6502/releases/tag/v1.0-rc.1) で bitstream、ガーバー・ドリル、組み立て指南書をまとめて配布しています。回路図と PCB は [KiCad プロジェクト](board/kagura-6502.kicad_pro) を開いて確認できます。
+
+## 検証状況
 
 この RC の bitstream は [aud_p1024.fs](release/aud_p1024.fs) の 1 点です。[SHA-256](release/SHA256SUMS) を照合できます。RTL の基準はローカル実装コミット `fdbc3a0`、Gowin Commercial 1.9.12.04、place option 2 / route option 1 です。保存済みの [統合シミュレーション](build-logs/audio/sim_system/sys_a1024_aud.log) は PASS、[STA](build-logs/audio/aud_p1024/aud_p1024.tr) は Setup / Hold 違反 0 / 0、[資源レポート](build-logs/audio/aud_p1024/aud_p1024.rpt.txt) は BSRAM 26 / 26 です。実機での CPU 起動、PSRAM、映像・音声は未確認です。波形チャンネルは 256 サンプル固定です。
 
@@ -20,5 +36,3 @@ bash fpga/vdp/sim/run_system.sh sys_a1024_aud
 ```
 
 第三者ソースの表示とライセンスは [THIRD_PARTY.md](THIRD_PARTY.md) を参照してください。KAGURA-6502 自体のライセンスは未決定です。
-
-キャリア基板 Rev.A の [KiCad ソースと組み立て指南書](board/README.md)、および [配布 ZIP](https://github.com/siska-tech/kagura-6502/releases/tag/v1.0-rc.1) を用意しています。
